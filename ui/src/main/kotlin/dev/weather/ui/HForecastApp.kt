@@ -992,13 +992,10 @@ private fun AboutScreen() {
         }
         item {
             ExplanationCard(
-                "Widget, themes and smartwatch",
+                "Widget and themes",
                 "The detailed home-screen widget reads the latest local cache, shows its age and offers a top-left " +
                     "refresh action that uses the saved location without starting GPS. The widget follows Android's " +
-                    "system light/dark mode, while HForecast itself supports system, light and dark themes. Android " +
-                    "notifications can be mirrored to an Amazfit through Zepp app notification " +
-                    "forwarding, but this Android app does not directly read watch sensors or maintain an always-on " +
-                    "Bluetooth connection.",
+                    "system light/dark mode, while HForecast itself supports system, light and dark themes.",
             )
         }
         item {

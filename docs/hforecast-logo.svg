@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108" role="img" aria-labelledby="title description">
+  <title id="title">HForecast logo</title>
+  <desc id="description">A symmetric blue gradient H with a small white F in its centre.</desc>
+  <defs>
+    <linearGradient id="hforecast-blue" x1="18" y1="54" x2="90" y2="54" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#68ceff"/>
+      <stop offset="0.42" stop-color="#4db9fb"/>
+      <stop offset="0.64" stop-color="#3599ee"/>
+      <stop offset="0.82" stop-color="#1768d2"/>
+      <stop offset="1" stop-color="#073b98"/>
+    </linearGradient>
+  </defs>
+  <rect width="108" height="108" rx="18" fill="#fff"/>
+  <path fill="url(#hforecast-blue)" d="M18 14h20v31h32V14h20v80H70V63H38v31H18z"/>
+  <path fill="#fff" d="M51.5 48.5h7V51h-4v2h3.5v2.5h-3.5v4h-3z"/>
+</svg>

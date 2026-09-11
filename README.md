@@ -1,4 +1,14 @@
-# HForecast
+<p align="center">
+  <img src="docs/hforecast-logo.svg" width="144" alt="HForecast logo">
+</p>
+
+<h1 align="center">HForecast</h1>
+
+<p align="center"><strong>Honest multi-model forecasting, with the uncertainty left visible.</strong></p>
+
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-1768d2" alt="MIT License"></a>
+</p>
 
 HForecast (Honest Forecast) is a native Android/Kotlin environment app. It combines a transparent multi-model weather forecast with aurora and solar activity, a compass-oriented sky map, air quality and pollen information. All calculations remain inspectable: the app exposes the model inputs, spread and confidence rather than presenting an unexplained score.
 
@@ -92,7 +102,7 @@ export ANDROID_HOME=/path/to/android-sdk
 
 The APK is generated at `app/build/outputs/apk/debug/app-debug.apk`.
 
-Version 0.5.2 uses the Android application ID `dev.weather.hforecast`. Android may therefore keep a much earlier development build as a separate app. Remove the old launcher entry if both appear; its local cache is not migrated.
+Version 0.5.3 uses the Android application ID `dev.weather.hforecast`. Android may therefore keep a much earlier development build as a separate app. Remove the old launcher entry if both appear; its local cache is not migrated.
 
 ## Adaptive forecast learning
 
@@ -134,10 +144,6 @@ Precipitation probability is only blended when Open-Meteo supplies a probability
 - **Astronomy:** positions are calculated locally for the selected latitude, longitude, altitude and current instant with Astronomy Engine. A 0–359° control and N/E/S/W marks let the user align the chart manually with a separate compass reading. The bright-star list is intentionally curated, so this is an observation guide rather than a full planetarium or telescope control system.
 - **Air quality:** Open-Meteo supplies CAMS model output at its returned grid coordinate. HForecast labels it as a forecast estimate, not a local regulatory measurement or medical warning.
 
-## Amazfit / Zepp
-
-Forecast and aurora notifications can be mirrored to an Amazfit watch by the Zepp phone app when notification forwarding is enabled. In Zepp, open **Profile > your Amazfit > Notifications and Reminders > App Notifications**, grant notification access, then enable HForecast under **Manage Apps**. HForecast may appear only after producing its first phone notification. Keep Bluetooth connected and allow Zepp to run in the background. HForecast does not claim direct access to watch sensors. Zepp OS compass access belongs to code running as a separate watch mini-app and support varies by exact T-Rex model and Zepp OS version. A future companion mini-app can exchange compact observations with HForecast; the current Android app keeps Sky orientation manual and does not add an always-on Bluetooth connection.
-
 ## Current honest boundaries
 
 - The standard Open-Meteo forecast response does not expose every native model initialization time. `modelInitializationTime` is therefore nullable, while `issuedAt` records when the app actually downloaded the forecast. It is not presented as a native run time.
@@ -146,9 +152,8 @@ Forecast and aurora notifications can be mirrored to an Amazfit watch by the Zep
 - Probabilistic ranges require real ensemble members and are intentionally deferred.
 - Aurora and air-quality results are refreshed on demand but are not yet part of the Room offline cache; the core weather forecast remains the cached offline product.
 - The sky catalogue contains the brightest reference stars rather than every catalogued object, and light pollution is not yet sourced.
-- Direct Amazfit sensor integration requires a separate Zepp OS companion and a confirmed compatible watch model.
 - Multiple named saved locations and direct SMHI/MET Norway adapters are subsequent slices. The current map uses OpenFreeMap's public instance; before broad distribution, choose an appropriate hosted service or self-hosting plan and review availability requirements.
 
 ## License
 
-No open-source license has been selected yet. The repository is publicly visible, but no permission to copy, modify or redistribute the code is granted until a license is added.
+HForecast is released under the [MIT License](LICENSE). You may use, copy, modify, merge, publish, distribute, sublicense and sell copies, provided that the copyright and permission notice are retained. The software is supplied without warranty.

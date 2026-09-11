@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HForecast</string>
+    <string name="widget_wide_name">HForecast detailed</string>
+    <string name="widget_wide_description">Current consensus with rain, wind, humidity and confidence</string>
+    <string name="widget_refresh_description">Refresh forecast</string>
+    <string name="widget_refreshing">Refreshing forecast…</string>
+    <string name="widget_empty_temperature">—°</string>
+    <string name="widget_empty_rain">Rain — · — mm</string>
+    <string name="widget_empty_cache">No cached forecast</string>
+    <string name="widget_empty_confidence">LOW</string>
+    <string name="widget_forecast_unavailable">Forecast unavailable</string>
+    <string name="widget_empty_feels_like">Feels like —</string>
+    <string name="widget_empty_wind">Wind — · gusts —</string>
+    <string name="widget_empty_atmosphere">Humidity — · pressure —</string>
+    <string name="widget_empty_models">— models available</string>
+</resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M0,0H108V108H0Z" />
+
+    <!-- API 23 fallback: narrow bands approximate the asymmetric blue gradient. -->
+    <group>
+        <clip-path android:pathData="M18,14H38V45H70V14H90V94H70V63H38V94H18Z" />
+        <path android:fillColor="#68CEFF" android:pathData="M18,14H28V94H18Z" />
+        <path android:fillColor="#5BC4FE" android:pathData="M28,14H38V94H28Z" />
+        <path android:fillColor="#4EB8FA" android:pathData="M38,14H48V94H38Z" />
+        <path android:fillColor="#42AAF5" android:pathData="M48,14H58V94H48Z" />
+        <path android:fillColor="#3599EE" android:pathData="M58,14H66V94H58Z" />
+        <path android:fillColor="#2885E4" android:pathData="M66,14H72V94H66Z" />
+        <path android:fillColor="#1C70D7" android:pathData="M72,14H78V94H72Z" />
+        <path android:fillColor="#125BC7" android:pathData="M78,14H84V94H78Z" />
+        <path android:fillColor="#0844A9" android:pathData="M84,14H90V94H84Z" />
+    </group>
+
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M51.5,48.5H58.5V51H54.5V53H58V55.5H54.5V59.5H51.5Z" />
+</vector>

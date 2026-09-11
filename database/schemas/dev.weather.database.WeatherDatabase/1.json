@@ -1,0 +1,272 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "0f9e60cc5bbdfef2e2dff8637f7f31df",
+    "entities": [
+      {
+        "tableName": "forecast_runs",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`runId` TEXT NOT NULL, `providerId` TEXT NOT NULL, `modelName` TEXT NOT NULL, `modelInitializationEpochMillis` INTEGER, `issuedAtEpochMillis` INTEGER NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `altitudeMeters` REAL, `displayName` TEXT, `locationKey` TEXT NOT NULL, `zoneId` TEXT NOT NULL, PRIMARY KEY(`runId`))",
+        "fields": [
+          {
+            "fieldPath": "runId",
+            "columnName": "runId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "providerId",
+            "columnName": "providerId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "modelName",
+            "columnName": "modelName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "modelInitializationEpochMillis",
+            "columnName": "modelInitializationEpochMillis",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "issuedAtEpochMillis",
+            "columnName": "issuedAtEpochMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "latitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "altitudeMeters",
+            "columnName": "altitudeMeters",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "displayName",
+            "columnName": "displayName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "locationKey",
+            "columnName": "locationKey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "zoneId",
+            "columnName": "zoneId",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "runId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_forecast_runs_providerId_locationKey_issuedAtEpochMillis",
+            "unique": false,
+            "columnNames": [
+              "providerId",
+              "locationKey",
+              "issuedAtEpochMillis"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_forecast_runs_providerId_locationKey_issuedAtEpochMillis` ON `${TABLE_NAME}` (`providerId`, `locationKey`, `issuedAtEpochMillis`)"
+          }
+        ]
+      },
+      {
+        "tableName": "forecast_points",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`runId` TEXT NOT NULL, `targetEpochMillis` INTEGER NOT NULL, `leadTimeSeconds` INTEGER NOT NULL, `temperatureC` REAL, `apparentTemperatureC` REAL, `minimumTemperatureC` REAL, `maximumTemperatureC` REAL, `relativeHumidityPercent` REAL, `dewPointC` REAL, `pressureHpa` REAL, `precipitationProbabilityPercent` REAL, `probabilitySource` TEXT NOT NULL, `precipitationMm` REAL, `rainMm` REAL, `snowfallMm` REAL, `windSpeedMs` REAL, `windDirectionDegrees` REAL, `windGustMs` REAL, `cloudCoverPercent` REAL, `visibilityMeters` REAL, `uvIndex` REAL, `condition` TEXT NOT NULL, `sunriseEpochMillis` INTEGER, `sunsetEpochMillis` INTEGER, PRIMARY KEY(`runId`, `targetEpochMillis`), FOREIGN KEY(`runId`) REFERENCES `forecast_runs`(`runId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "runId",
+            "columnName": "runId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "targetEpochMillis",
+            "columnName": "targetEpochMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "leadTimeSeconds",
+            "columnName": "leadTimeSeconds",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "temperatureC",
+            "columnName": "temperatureC",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "apparentTemperatureC",
+            "columnName": "apparentTemperatureC",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "minimumTemperatureC",
+            "columnName": "minimumTemperatureC",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "maximumTemperatureC",
+            "columnName": "maximumTemperatureC",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "relativeHumidityPercent",
+            "columnName": "relativeHumidityPercent",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "dewPointC",
+            "columnName": "dewPointC",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "pressureHpa",
+            "columnName": "pressureHpa",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "precipitationProbabilityPercent",
+            "columnName": "precipitationProbabilityPercent",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "probabilitySource",
+            "columnName": "probabilitySource",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "precipitationMm",
+            "columnName": "precipitationMm",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "rainMm",
+            "columnName": "rainMm",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "snowfallMm",
+            "columnName": "snowfallMm",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "windSpeedMs",
+            "columnName": "windSpeedMs",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "windDirectionDegrees",
+            "columnName": "windDirectionDegrees",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "windGustMs",
+            "columnName": "windGustMs",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "cloudCoverPercent",
+            "columnName": "cloudCoverPercent",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "visibilityMeters",
+            "columnName": "visibilityMeters",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "uvIndex",
+            "columnName": "uvIndex",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "condition",
+            "columnName": "condition",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sunriseEpochMillis",
+            "columnName": "sunriseEpochMillis",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "sunsetEpochMillis",
+            "columnName": "sunsetEpochMillis",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "runId",
+            "targetEpochMillis"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_forecast_points_runId",
+            "unique": false,
+            "columnNames": [
+              "runId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_forecast_points_runId` ON `${TABLE_NAME}` (`runId`)"
+          },
+          {
+            "name": "index_forecast_points_targetEpochMillis",
+            "unique": false,
+            "columnNames": [
+              "targetEpochMillis"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_forecast_points_targetEpochMillis` ON `${TABLE_NAME}` (`targetEpochMillis`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "forecast_runs",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "runId"
+            ],
+            "referencedColumns": [
+              "runId"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0f9e60cc5bbdfef2e2dff8637f7f31df')"
+    ]
+  }
+}

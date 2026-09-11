@@ -1172,18 +1172,6 @@ private fun SettingsScreen(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
-        item { HorizontalDivider() }
-        item {
-            Text("Amazfit / Zepp", style = MaterialTheme.typography.headlineSmall)
-            Text(
-                "To mirror HForecast alerts, keep the watch connected, then open Zepp: Profile > your Amazfit > " +
-                    "Notifications and Reminders > App Notifications. Grant Zepp notification access and enable " +
-                    "HForecast under Manage Apps. If HForecast is not listed yet, let it produce one phone " +
-                    "notification first. Allow Zepp to run in the background so Android does not break the " +
-                    "watch connection. The sky map remains manually aligned with a compass app.",
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-        }
     }
 }
 

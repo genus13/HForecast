@@ -92,7 +92,7 @@ export ANDROID_HOME=/path/to/android-sdk
 
 The APK is generated at `app/build/outputs/apk/debug/app-debug.apk`.
 
-Version 0.5.1 uses the Android application ID `dev.weather.hforecast`. Android may therefore keep a much earlier development build as a separate app. Remove the old launcher entry if both appear; its local cache is not migrated.
+Version 0.5.2 uses the Android application ID `dev.weather.hforecast`. Android may therefore keep a much earlier development build as a separate app. Remove the old launcher entry if both appear; its local cache is not migrated.
 
 ## Adaptive forecast learning
 

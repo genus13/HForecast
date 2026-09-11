@@ -100,7 +100,8 @@ export ANDROID_HOME=/path/to/android-sdk
 ./gradlew test lintDebug assembleDebug
 ```
 
-The APK is generated at `app/build/outputs/apk/debug/app-debug.apk`.
+The APK filename always includes the application version. For example, version 0.5.3 is generated at
+`app/build/outputs/apk/debug/HForecast_0.5.3.apk`.
 
 Version 0.5.3 uses the Android application ID `dev.weather.hforecast`. Android may therefore keep a much earlier development build as a separate app. Remove the old launcher entry if both appear; its local cache is not migrated.
 

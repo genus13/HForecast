@@ -41,6 +41,14 @@ android {
     }
 }
 
+android.applicationVariants.all {
+    val appVersion = versionName
+    outputs.all {
+        (this as com.android.build.gradle.internal.api.BaseVariantOutputImpl).outputFileName =
+            "HForecast_$appVersion.apk"
+    }
+}
+
 kotlin {
     jvmToolchain(17)
 }

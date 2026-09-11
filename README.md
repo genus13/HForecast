@@ -1,6 +1,6 @@
 # HForecast
 
-HForecast (the H stands for Honest) is a native Android/Kotlin environment app. It combines a transparent multi-model weather forecast with aurora and solar activity, a compass-oriented sky map, air quality and pollen information. All calculations remain inspectable: the app exposes the model inputs, spread and confidence rather than presenting an unexplained score.
+HForecast (Honest Forecast) is a native Android/Kotlin environment app. It combines a transparent multi-model weather forecast with aurora and solar activity, a compass-oriented sky map, air quality and pollen information. All calculations remain inspectable: the app exposes the model inputs, spread and confidence rather than presenting an unexplained score.
 
 > **Project status:** actively developed personal-use application. Forecasts and environmental estimates are not a substitute for official warnings or safety-critical guidance.
 

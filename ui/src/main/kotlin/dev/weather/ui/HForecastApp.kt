@@ -1,5 +1,6 @@
 package dev.weather.ui
 
+import android.content.res.Configuration
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -29,6 +30,8 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
@@ -36,7 +39,6 @@ import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -47,9 +49,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import dev.weather.core.ForecastVariable
 import dev.weather.core.AppTheme
@@ -137,55 +141,19 @@ private fun ForecastScaffold(
 ) {
     val pagerState = rememberPagerState(pageCount = { ScreenTab.entries.size })
     val navigationScope = rememberCoroutineScope()
+    val isLandscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
-            Column(
-                modifier = Modifier
-                    .background(MaterialTheme.colorScheme.surface)
-                    .statusBarsPadding(),
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 12.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Image(
-                        painter = painterResource(R.drawable.hforecast_brand_mark),
-                        contentDescription = "HForecast logo",
-                        modifier = Modifier.size(46.dp).padding(4.dp),
-                    )
-                    Spacer(Modifier.width(12.dp))
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            "HForecast",
-                            style = MaterialTheme.typography.headlineSmall,
-                            fontWeight = FontWeight.SemiBold,
-                        )
-                        Text(
-                            "${state.forecast.location.displayLabel()} · ${state.forecast.providerIssuedAt.size} models",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                        Text(
-                            state.forecast.location.coordinateLabel(),
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
-                    TextButton(onClick = onRefresh, enabled = !state.isRefreshing) {
-                        Text(if (state.isRefreshing) "Updating…" else "Refresh")
-                    }
-                }
-                ScrollableTabRow(selectedTabIndex = pagerState.currentPage, edgePadding = 8.dp) {
-                    ScreenTab.entries.forEachIndexed { index, tab ->
-                        Tab(
-                            selected = pagerState.currentPage == index,
-                            onClick = { navigationScope.launch { pagerState.animateScrollToPage(index) } },
-                            text = { Text(tab.title) },
-                        )
-                    }
-                }
-            }
+            ForecastTopBar(
+                state = state,
+                selectedTabIndex = pagerState.currentPage,
+                isLandscape = isLandscape,
+                onRefresh = onRefresh,
+                onTabSelected = { index ->
+                    navigationScope.launch { pagerState.animateScrollToPage(index) }
+                },
+            )
         },
     ) { padding ->
         Column(modifier = Modifier.padding(padding)) {
@@ -214,6 +182,164 @@ private fun ForecastScaffold(
                     )
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun ForecastTopBar(
+    state: WeatherUiState.Content,
+    selectedTabIndex: Int,
+    isLandscape: Boolean,
+    onRefresh: () -> Unit,
+    onTabSelected: (Int) -> Unit,
+) {
+    if (isLandscape) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.surface)
+                .statusBarsPadding()
+                .padding(horizontal = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            ForecastBrandSummary(
+                state = state,
+                compact = true,
+                modifier = Modifier.widthIn(max = 180.dp),
+            )
+            ForecastTabs(
+                selectedTabIndex = selectedTabIndex,
+                compact = true,
+                onTabSelected = onTabSelected,
+                modifier = Modifier.weight(1f),
+            )
+            RefreshAction(
+                refreshing = state.isRefreshing,
+                compact = true,
+                onRefresh = onRefresh,
+            )
+        }
+    } else {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.surface)
+                .statusBarsPadding(),
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 2.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                ForecastBrandSummary(
+                    state = state,
+                    compact = false,
+                    modifier = Modifier.weight(1f),
+                )
+                RefreshAction(
+                    refreshing = state.isRefreshing,
+                    compact = false,
+                    onRefresh = onRefresh,
+                )
+            }
+            ForecastTabs(
+                selectedTabIndex = selectedTabIndex,
+                compact = false,
+                onTabSelected = onTabSelected,
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
+    }
+}
+
+@Composable
+private fun ForecastBrandSummary(
+    state: WeatherUiState.Content,
+    compact: Boolean,
+    modifier: Modifier,
+) {
+    Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
+        Image(
+            painter = painterResource(R.drawable.hforecast_brand_mark),
+            contentDescription = "HForecast logo",
+            modifier = Modifier
+                .size(if (compact) 30.dp else 36.dp)
+                .padding(if (compact) 3.dp else 4.dp),
+        )
+        Spacer(Modifier.width(if (compact) 5.dp else 8.dp))
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                "HForecast",
+                style = if (compact) MaterialTheme.typography.titleSmall else MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold,
+                maxLines = 1,
+            )
+            Text(
+                "${state.forecast.location.displayLabel()} · ${state.forecast.providerIssuedAt.size} models",
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
+        }
+    }
+}
+
+@Composable
+private fun ForecastTabs(
+    selectedTabIndex: Int,
+    compact: Boolean,
+    onTabSelected: (Int) -> Unit,
+    modifier: Modifier,
+) {
+    ScrollableTabRow(
+        selectedTabIndex = selectedTabIndex,
+        modifier = modifier,
+        edgePadding = if (compact) 0.dp else 4.dp,
+    ) {
+        ScreenTab.entries.forEachIndexed { index, tab ->
+            Tab(
+                selected = selectedTabIndex == index,
+                onClick = { onTabSelected(index) },
+                text = {
+                    Text(
+                        tab.title,
+                        style = if (compact) {
+                            MaterialTheme.typography.labelMedium
+                        } else {
+                            MaterialTheme.typography.labelLarge
+                        },
+                        maxLines = 1,
+                    )
+                },
+            )
+        }
+    }
+}
+
+@Composable
+private fun RefreshAction(
+    refreshing: Boolean,
+    compact: Boolean,
+    onRefresh: () -> Unit,
+) {
+    IconButton(
+        onClick = onRefresh,
+        enabled = !refreshing,
+        modifier = Modifier.size(if (compact) 40.dp else 44.dp),
+    ) {
+        if (refreshing) {
+            CircularProgressIndicator(
+                modifier = Modifier.size(if (compact) 16.dp else 18.dp),
+                strokeWidth = 2.dp,
+            )
+        } else {
+            Icon(
+                painter = painterResource(R.drawable.ic_refresh),
+                contentDescription = "Refresh forecast",
+                modifier = Modifier.size(if (compact) 18.dp else 20.dp),
+                tint = MaterialTheme.colorScheme.primary,
+            )
         }
     }
 }
@@ -1267,9 +1393,6 @@ private fun EnsembleResult.centeredTechnicalTimeline(hoursEachSide: Long = 72): 
 
 private fun dev.weather.core.GeoLocation.displayLabel(): String =
     displayName ?: String.format(Locale.getDefault(), "%.3f, %.3f", latitude, longitude)
-
-private fun GeoLocation.coordinateLabel(): String =
-    String.format(Locale.US, "%.5f, %.5f", latitude, longitude)
 
 private fun Int.hourLabel(): String = String.format(Locale.US, "%02d:00", this)
 

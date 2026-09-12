@@ -22,6 +22,7 @@ HForecast (Honest Forecast) is a native Android/Kotlin environment app. It combi
 - Bounded interpolation onto a common hourly timeline.
 - Variable- and horizon-specific configurable weights with renormalization when models or individual values are missing.
 - Explicit range-based model spread and transparent HIGH/MEDIUM/LOW confidence rules.
+- Responsive navigation: landscape places the compact brand, tabs and icon-only refresh action on one row, while portrait uses a reduced two-row header.
 - Swipeable top-level navigation plus current, full-horizon hourly, 16-day daily and per-model comparison views in Jetpack Compose.
 - Technical hourly and multi-model charts open on a 24-hour viewport centred on now (12 hours past and 12 hours ahead). Pinch zoom-out reaches a 144-hour span (72 hours in either direction), horizontal panning moves through it, the visible Y scale adapts automatically, and a labelled NOW line keeps past and future unambiguous.
 - The chart history comes from Open-Meteo's 72 recent archived model hours and is explicitly treated as retrospective model output, not observation data or a substitute for forecasts previously captured by HForecast. The original future-only hourly table remains available.
@@ -100,10 +101,10 @@ export ANDROID_HOME=/path/to/android-sdk
 ./gradlew test lintDebug assembleDebug
 ```
 
-The APK filename always includes the application version. For example, version 0.5.3 is generated at
-`app/build/outputs/apk/debug/HForecast_0.5.3.apk`.
+The APK filename always includes the application version. For example, version 0.5.4 is generated at
+`app/build/outputs/apk/debug/HForecast_0.5.4.apk`.
 
-Version 0.5.3 uses the Android application ID `dev.weather.hforecast`. Android may therefore keep a much earlier development build as a separate app. Remove the old launcher entry if both appear; its local cache is not migrated.
+Version 0.5.4 uses the Android application ID `dev.weather.hforecast`. Android may therefore keep a much earlier development build as a separate app. Remove the old launcher entry if both appear; its local cache is not migrated.
 
 ## Adaptive forecast learning
 
